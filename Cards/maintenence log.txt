@@ -1,0 +1,12 @@
+5/14:
+-started project
+-made card and deck classes
+5/15:
+-started working on drawing cards as ascii but custom character weren't working
+-made basic cards with 3x2 ascii pictures of suits instead
+5/16:
+-fixed special character drawing by swapping what kind of console it was
+-finished DrawASCII for cards and decks.
+-added BlackJackHandState
+-added ability to have cards face upwards or downwards
+-started blackjackplayer (dealer, bot, and human will inherit from it)
