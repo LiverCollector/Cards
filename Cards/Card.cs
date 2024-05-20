@@ -27,8 +27,8 @@ namespace Cards
      * _╨_
      * 
      * Clubs
-     *  .
-     * ·|·
+     *  *
+     * *|*
      * 
      */
     public enum values
@@ -123,8 +123,8 @@ namespace Cards
                                 bottom = "_╨_";
                                 break;
                             default:
-                                top = " . ";
-                                bottom = "·|·";
+                                top = " * ";
+                                bottom = "*|*";
                                 break;
                         }
                         top = GetColor(suit) + top + FOREGROUND;

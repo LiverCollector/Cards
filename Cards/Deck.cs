@@ -79,6 +79,12 @@ namespace Cards
         {
             cards.Add(card);
         }
+        public void SetFlip(bool faceUp)
+        {
+            foreach(Card card in cards){
+                card.faceUp = faceUp;
+            }
+        }
         public override string ToString()
         {
             string output = "";

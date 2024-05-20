@@ -8,6 +8,7 @@
         static void Main(string[] args)
         {
             Deck deck = new Deck(true);
+            deck.SetFlip(false);
             Deck discard = new Deck(false);
             deck.Shuffle();
             BlackJackPlayer player = new HumanPlayer();
@@ -22,19 +23,21 @@
                 player.hand.AddCard(DrawCard(deck, discard));
                 player.hand.AddCard(DrawCard(deck, discard));
 
-                PrintState(dealer, player);
+                PrintState(dealer, player, deck, discard);
                 while (player.WillHit())
                 {
                     player.hand.AddCard(DrawCard(deck, discard));
-                    PrintState(dealer, player);
+                    BlackJackHandState state = new BlackJackHandState(player.hand);
+                    PrintState(dealer, player, deck, discard);
+                    //if (state.state == SpecialHandStates.broke) { Thread.Sleep(300);  break; }
                 }
                 dealer.hand.cards[0].faceUp = true;
-                PrintState(dealer, player);
+                PrintState(dealer, player, deck, discard);
                 Thread.Sleep(200);
                 while (dealer.WillHit())
                 {
                     dealer.hand.AddCard(DrawCard(deck, discard));
-                    PrintState(dealer, player);
+                    PrintState(dealer, player, deck, discard);
                     Thread.Sleep(100);
                 }
                 BlackJackHandState dealerHand = new BlackJackHandState(dealer.hand);
@@ -85,32 +88,54 @@
         {
             if(deck.cards.Count >= 1)
             {
-                return deck.DrawNext();
+                Card card = deck.DrawNext();
+                card.faceUp = true;
+                return card;
             }
             else
             {
                 deck.cards.AddRange(discard.cards);
                 discard.cards.Clear();
                 deck.Shuffle();
-                return deck.DrawNext();
+                deck.SetFlip(false);
+                return DrawCard(deck, discard);
             }
         }
-        public static void PrintState(BlackJackPlayer dealer, BlackJackPlayer player)
+        public static void PrintState(BlackJackPlayer dealer, BlackJackPlayer player, Deck deck, Deck discard)
         {
             Console.Clear();
-            Console.WriteLine(dealer.name + "'s cards: ");
-            Console.WriteLine(dealer.hand.ToASCIIString(true));
+
+            Console.WriteLine("   deck:     discard:");
+            if (discard.cards.Count >= 1 && deck.cards.Count >= 1)
+            {
+                Deck display = new Deck(false);
+                display.AddCard(deck.cards[deck.cards.Count - 1]);
+                display.AddCard(discard.cards[discard.cards.Count - 1]);
+                Console.WriteLine(display.ToASCIIString(true));
+            }
+            else if (deck.cards.Count >= 1)
+            {
+                Card card = deck.cards[deck.cards.Count - 1];
+                Console.WriteLine(card.GetAsciiString());
+            }
+            else if (discard.cards.Count >= 1)
+            {
+                string card = discard.cards[discard.cards.Count - 1].GetAsciiString();
+                card = card.Replace("\n|", "\n           |");
+                card = card.Replace(" -", "            -");
+                Console.WriteLine(card);
+            }
+
+            string state = "unknown value";
             if (dealer.hand.cards[0].faceUp)
             {
-                Console.WriteLine(dealer.name + "'s value: " + new BlackJackHandState(dealer.hand));
+                state = new BlackJackHandState(dealer.hand).ToString();
             }
-            else
-            {
-                Console.WriteLine(dealer.name + "'s value: unknown");
-            }
-            Console.WriteLine(player.name + "'s cards: ");
+            Console.WriteLine(dealer.name + "'s cards (" + state + "): ");
+            Console.WriteLine(dealer.hand.ToASCIIString(true));
+
+            Console.WriteLine(player.name + "'s cards (" + new BlackJackHandState(player.hand) + "): ");
             Console.WriteLine(player.hand.ToASCIIString(true));
-            Console.WriteLine(player.name + "'s value: " + new BlackJackHandState(player.hand));
         }
     }
 }
