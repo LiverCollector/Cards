@@ -10,3 +10,23 @@
 -added BlackJackHandState
 -added ability to have cards face upwards or downwards
 -started blackjackplayer (dealer, bot, and human will inherit from it)
+5/17:
+-finished printstate
+5/18:
+-made dealer
+5/19:
+-finished humanplayer
+5/20:
+-finished printstate
+5/22:
+-finished bot
+5/23:
+-blackjacks now award 1.5 wins
+5/25:
+-finished optimization to bot (card possibilities of same values are now combined)
+5/27
+-finished adding betting
+5/31:
+-added doubling down
+6/3:
+-finished simpleBot
