@@ -1,3 +1,12 @@
+Name:Olivia Duncan
+Project: Card game
+Psuedocode: 
+The bot works by looking at its hand and the card the dealer is showing.
+It first picks a card that it knows is still in the deck and adds it to an imaginary copy of its hand.
+It then simulates every possible thing the dealer could draw to calculate its chance of winning using a recursive function. 
+It does this with every value of card that’s still in the deck. It takes a weighted average of all of these chances and compares them to its chance of winning if it doesn’t draw a card. 
+If it is more likely to win by hitting than standing, it hits. For doubling down it just does this and checks if its chance of winning if it hits is greater than 50%, in which case it doubles down.
+Maintenence log:
 5/14:
 -started project
 -made card and deck classes

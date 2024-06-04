@@ -12,7 +12,7 @@ namespace Cards
         static void Main(string[] args)
         {
             Console.BackgroundColor = ConsoleColor.Black;
-            Deck deck = new Deck(1,true);
+            Deck deck = new Deck(1, true);
             deck.SetFlip(false);
             Deck discard = new Deck(false);
             deck.Shuffle();
@@ -65,6 +65,7 @@ namespace Cards
                 player.NotifyDraw(player.hand.cards[0]);
                 player.NotifyDraw(player.hand.cards[1]);
 
+                //if the player can double down it
                 bool playerDoubledDown = false;
                 if (player.hand.CanDoubleDown())
                 {
