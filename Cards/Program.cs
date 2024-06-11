@@ -8,16 +8,15 @@ namespace Cards
         public static Color DEFAULT_BACKGROUND = new Color(13, 13, 13);
         public static int MIN_BET = 5;
         public static Random random = new Random();
-        public static bool fairDealer = true;
+        public static bool fairDealer = false;
         static void Main(string[] args)
         {
             Console.BackgroundColor = ConsoleColor.Black;
             Deck deck = new Deck(1, true);
-            deck.SetFlip(false);
             Deck discard = new Deck(false);
             deck.Shuffle();
-            BlackJackPlayer player = new BotPlayer(deck);
-            //BlackJackPlayer player = new HumanPlayer();
+            //BlackJackPlayer player = new BotPlayer(deck);
+            BlackJackPlayer player = new HumanPlayer();
             //BlackJackPlayer player = new SimpleBot();
             BlackJackPlayer dealer = new Dealer();
             //BlackJackPlayer dealer = new HumanPlayer();
